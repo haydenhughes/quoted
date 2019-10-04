@@ -40,13 +40,13 @@ class QuoteAPI(Resource):
             abort(404, message=f'Quote {id} does not exist')
 
         for key, value in request.json.items():
-            if value == '':
+            if 'id' in request.json or 'uri' in request.json or 'text' in request.json:
+                abort(403, message='Modification of the uri or id field is forbidden')
+            elif value == '':
                 try:
                     delattr(quote, key)
                 except AttributeError:
                     pass  # Doesn't matter that it doesn't exist.
-            elif 'id' in request.json or 'uri' in request.json:
-                abort(403, message='Modification of the uri or id field is forbidden')
             else:
                 setattr(quote, key, value)
         quote.save()
