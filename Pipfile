@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-ZODB = "*"
 Flask = "*"
 flask-mongoengine = "*"
 Flask-API = "*"
