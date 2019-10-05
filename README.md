@@ -1,6 +1,6 @@
 # Quoted
 
-The ultimate management tool.
+The ultimate quote management tool.
 
 Quoted is basically a set of tools to create a REST API for quotes. It tries to be as flexible as possible by using Mongo dynamic documents to store the data therefore it is possible to add as many data points as you see fit such as author, description, themes, etc. Although with great power comes great responsibility to maintain consistency and intuitiveness.
 
