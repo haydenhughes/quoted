@@ -10,14 +10,14 @@ class QuoteListAPI(Resource):
         return {'quotes': json.loads(Quote.objects.to_json())}
 
     def post(self):
-        if not request.json or 'text' not in request.json:
+        if not request.json or 'quote' not in request.json:
             abort(400, message='Does the text fild exist?')
 
         try:
             quote = Quote(**request.json).save()
         except NotUniqueError:
             abort(
-                403, message=f'The quote "{request.json["text"]}" already exists.')
+                403, message=f'The quote "{request.json["quote"]}" already exists.')
         quote.uri = url_for('quote', id=quote.id, _external=True)
         quote.save()
 
@@ -40,7 +40,7 @@ class QuoteAPI(Resource):
             abort(404, message=f'Quote {id} does not exist')
 
         for key, value in request.json.items():
-            if 'id' in request.json or 'uri' in request.json or 'text' in request.json:
+            if 'id' in request.json or 'uri' in request.json or 'quote' in request.json:
                 abort(403, message='Modification of the uri or id field is forbidden')
             elif value == '':
                 try:
