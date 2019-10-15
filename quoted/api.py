@@ -1,7 +1,7 @@
 import json
 from flask_restful import Resource, abort
 from flask import request, url_for
-from mongoengine import DoesNotExist, NotUniqueError
+from mongoengine import DoesNotExist, NotUniqueError, ValidationError
 from .models import Quote
 
 
@@ -18,7 +18,11 @@ class QuoteListAPI(Resource):
         except NotUniqueError:
             abort(
                 403, message=f'The quote "{request.json["quote"]}" already exists.')
+        except ValidationError as e:
+            abort(403, message=e)
+
         quote.uri = url_for('quote', id=quote.id, _external=True)
+
         quote.save()
 
         return {'quote': json.loads(quote.to_json())}, 201
