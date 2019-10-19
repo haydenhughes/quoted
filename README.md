@@ -51,7 +51,7 @@ The newly created quote entry will be returned.
 
 Keep note of the `$oid` value. This is Mongo's internal id value which is used to index a quote. For convenience, the `uri` value is generated which can be used to retrieve that specific quote via a `GET` request and apply operations to it.
 
-### PUTting updates values into a quote
+### PUTting updated values into a quote
 
 To modify an existing quote:
 

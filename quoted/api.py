@@ -1,8 +1,8 @@
 import json
 from flask_restful import Resource, abort
 from flask import request, url_for
-from mongoengine import DoesNotExist, NotUniqueError, ValidationError
 from .models import Quote
+from mongoengine import NotUniqueError, ValidationError
 
 
 class QuoteListAPI(Resource):
@@ -11,7 +11,7 @@ class QuoteListAPI(Resource):
 
     def post(self):
         if not request.json or 'quote' not in request.json:
-            abort(400, message='Does the text fild exist?')
+            abort(400, message='Does the text field exist?')
 
         try:
             quote = Quote(**request.json).save()
@@ -30,29 +30,24 @@ class QuoteListAPI(Resource):
 
 class QuoteAPI(Resource):
     def get(self, id):
-        try:
-            return {'quote': json.loads(Quote.objects.get(id=id).to_json())}
-        except DoesNotExist:
-            abort(404, message=f'Quote {id} does not exist')
+        return {'quote': json.loads(Quote.objects.get_or_404(id=id).to_json())}
 
     def put(self, id):
         if not request.json:
             abort(400)
-        try:
-            quote = Quote.objects.get(id=id)
-        except DoesNotExist:
-            abort(404, message=f'Quote {id} does not exist')
+        if 'id' in request.json or 'uri' in request.json:
+            abort(403, message='Modification of the uri or id field is forbidden')
+
+        quote = Quote.objects.get_or_404(id=id)
 
         for key, value in request.json.items():
-            if 'id' in request.json or 'uri' in request.json or 'quote' in request.json:
-                abort(403, message='Modification of the uri or id field is forbidden')
-            elif value == '':
+            if value == '':
                 try:
-                    delattr(quote, key)
+                    delattr(quote, key.lower())
                 except AttributeError:
                     pass  # Doesn't matter that it doesn't exist.
             else:
-                setattr(quote, key, value)
+                setattr(quote, key.lower(), value)
         quote.save()
 
         return {'quote': json.loads(quote.to_json())}
