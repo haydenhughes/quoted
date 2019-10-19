@@ -1,5 +1,5 @@
 from flask_restful import abort
-from mongoengine import DynamicDocument, StringField, URLField, ListField, ReferenceField, DoesNotExist, QuerySet
+from mongoengine import DynamicDocument, StringField, URLField, ListField, ReferenceField, DoesNotExist, QuerySet, PULL
 
 
 class APIQuerySet(QuerySet):
@@ -17,3 +17,8 @@ class Quote(DynamicDocument):
     uri = URLField()
 
 
+class Character(DynamicDocument):
+    meta = {'queryset_class': APIQuerySet}
+    name = StringField(max_length=100, required=True, unique=True)
+    quotes = ListField(ReferenceField('Quote', reverse_delete_rule=PULL))
+    uri = URLField()
