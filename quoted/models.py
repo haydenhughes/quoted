@@ -14,11 +14,19 @@ class Quote(DynamicDocument):
     meta = {'queryset_class': APIQuerySet}
     quote = StringField(max_length=100, required=True, unique=True)
     character = StringField()
+    themes = ListField(StringField())
     uri = URLField()
 
 
 class Character(DynamicDocument):
     meta = {'queryset_class': APIQuerySet}
     name = StringField(max_length=100, required=True, unique=True)
+    quotes = ListField(ReferenceField('Quote', reverse_delete_rule=PULL))
+    uri = URLField()
+
+
+class Theme(DynamicDocument):
+    meta = {'queryset_class': APIQuerySet}
+    theme = StringField(max_length=100, required=True, unique=True)
     quotes = ListField(ReferenceField('Quote', reverse_delete_rule=PULL))
     uri = URLField()

@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from flask_restful import Api
 from mongoengine import connect
-from .api import QuoteAPI, QuoteListAPI, CharacterAPI, CharacterListAPI
+from .api import QuoteAPI, QuoteListAPI, CharacterAPI, CharacterListAPI, ThemeAPI, ThemeListAPI
 
 app = Flask(__name__)
 api = Api(app)
@@ -14,6 +14,9 @@ api.add_resource(QuoteAPI, '/api/v1.0/quotes/<id>', endpoint='quote')
 
 api.add_resource(CharacterListAPI, '/api/v1.0/characters', endpoint='characters')
 api.add_resource(CharacterAPI, '/api/v1.0/characters/<id>', endpoint='character')
+
+api.add_resource(ThemeListAPI, '/api/v1.0/themes', endpoint='themes')
+api.add_resource(ThemeAPI, '/api/v1.0/themes/<id>', endpoint='theme')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
