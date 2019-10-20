@@ -14,6 +14,7 @@ class Quote(DynamicDocument):
     meta = {'queryset_class': APIQuerySet}
     quote = StringField(max_length=100, required=True, unique=True)
     character = StringField()
+    significance = StringField()
     themes = ListField(StringField())
     uri = URLField()
 
