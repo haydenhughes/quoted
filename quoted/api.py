@@ -28,14 +28,7 @@ class QuoteListAPI(Resource):
             # Check to see if the character of the quote already exists then
             # append the new quote to it's quote list, otherwise create a new
             # character.
-
-            # uncomment when python3.8 is mainstream
-            # if (character := Character.objects(name=quote.character)).count() > 0:
-
-            # TODO: remove me when migrated to python3.8
-            if Character.objects(name=quote.character).count() > 0:
-                # TODO: remove me when migrated to python3.8
-                character = Character.objects.get(name=quote.character)
+            if (character := Character.objects(name=quote.character)).count() > 0:
                 character.quotes += [quote]
                 character.save()
             else:
@@ -46,8 +39,7 @@ class QuoteListAPI(Resource):
             # append the new quote to it's quote list, otherwise create a new
             # character.
             for theme in quote.themes:
-                if Theme.objects(theme=theme).count() > 0:
-                    theme = Theme.objects.get(name=theme)
+                if (theme := Theme.objects(theme=theme)).count() > 0:
                     theme.quotes += [quote]
                     theme.save()
                 else:
