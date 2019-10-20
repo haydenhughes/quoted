@@ -11,7 +11,7 @@ class QuoteListAPI(Resource):
 
     def post(self):
         if not request.json or 'quote' not in request.json or 'id' in request.json or 'uri' in request.json:
-            abort(403, message='Does the text field exist?')
+            abort(403, message='Does the quote field exist?')
 
         try:
             quote = Quote(**request.json).save()
