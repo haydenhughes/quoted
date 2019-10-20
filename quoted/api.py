@@ -86,7 +86,7 @@ class CharacterListAPI(Resource):
             abort(403, message='Does the name field exist?')
 
         try:
-            character = Character(**request.json, quotes=3).save()
+            character = Character(**request.json, quotes=[]).save()
         except NotUniqueError:
             abort(
                 403, message=f'The character "{request.json["character"]}" already exists.')
@@ -137,7 +137,7 @@ class ThemeListAPI(Resource):
             abort(403, message='Does the theme field exist?')
 
         try:
-            theme = Theme(**request.json, quotes=3).save()
+            theme = Theme(**request.json, quotes=[]).save()
         except NotUniqueError:
             abort(
                 403, message=f'The theme "{request.json["theme"]}" already exists.')
