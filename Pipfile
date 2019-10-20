@@ -5,10 +5,9 @@ name = "pypi"
 
 [packages]
 Flask = "*"
-flask-mongoengine = "*"
 Flask-API = "*"
-flask = "*"
-flask-restful = "*"
+Flask-RESTful = "*"
+mongoengine = "*"
 
 [requires]
 python_version = "3.8"
