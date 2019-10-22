@@ -8,9 +8,13 @@ Flask = "*"
 Flask-API = "*"
 Flask-RESTful = "*"
 mongoengine = "*"
+blinker = "*"
 
 [requires]
 python_version = "3.8"
+
+[dev-packages]
+requests = "*"
 
 [dev-packages.python-language-server]
 extras = [ "all",]
