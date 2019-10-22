@@ -2,7 +2,6 @@ import json
 from flask import request
 from flask_restful import Resource, abort
 from mongoengine import ValidationError, NotUniqueError
-from .documents import *
 
 
 class QueryAPI(Resource):
