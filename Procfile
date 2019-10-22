@@ -1,1 +1,0 @@
-web: gunicorn quoted:app

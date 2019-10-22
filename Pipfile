@@ -9,7 +9,6 @@ Flask-API = "*"
 Flask-RESTful = "*"
 mongoengine = "*"
 blinker = "*"
-gunicorn = "*"
 
 [requires]
 python_version = "3.8"
