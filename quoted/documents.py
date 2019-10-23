@@ -26,6 +26,9 @@ class Quote(DynamicDocument):
             character.uri = url_for(
                 'character', id=character.id, _external=True)
             character.save()
+        else:
+            # Call save function to update the quotes list
+            Character.objects.get(name=document.character).save()
 
         for theme in document.themes:
             if Theme.objects(theme=theme).count() == 0:
@@ -33,6 +36,9 @@ class Quote(DynamicDocument):
                 theme.uri = url_for(
                     'theme', id=character.id, _external=True)
                 theme.save()
+            else:
+                # Call save function to update the quotes list
+                Theme.objects.get(theme=theme).save()
 
 
 class Character(DynamicDocument):
