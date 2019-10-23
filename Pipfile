@@ -10,6 +10,7 @@ Flask-RESTful = "*"
 mongoengine = "*"
 blinker = "*"
 gunicorn = "*"
+dnspython = "*"
 
 [requires]
 python_version = "3.8"
